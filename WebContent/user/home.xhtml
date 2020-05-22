@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Página principal</title>
+</h:head>
+<h:body>
+	<a href="/GestorIncidencias/administrador/registro.xhtml">Registrar usuario</a>
+	<a href="/GestorIncidencias/user/nuevaIncidencia.xhtml">Nueva incidencia</a>
+	<a href="/GestorIncidencias/user/cambiarPassword.xhtml">Cambiar contraseña</a>
+	<h:panelGroup rendered="#{verIncidenciasBean.paginacion.itemsCount>=0}"
+		id="resultadoBusqueda">
+		<h:form prependId="false">
+			<h:panelGrid>
+				<h:selectOneMenu value="#{verIncidenciasBean.estadoIncidencia}">
+					<f:selectItem itemLabel="Todas" itemValue="%" />
+					<f:selectItem itemLabel="Nuevas" itemValue="NUEVA" />
+					<f:selectItem itemLabel="Espera" itemValue="ESPERA" />
+					<f:selectItem itemLabel="Abiertas" itemValue="ABIERTA" />
+					<f:selectItem itemLabel="Resueltas" itemValue="RESUELTA" />
+					<f:selectItem itemLabel="Cerradas" itemValue="CERRADA" />
+				</h:selectOneMenu>
+				<h:commandButton
+					action="#{verIncidenciasBean.getEstadoIncidenciaFiltrada()}"
+					value="Buscar">
+					<f:ajax execute="@form"
+						listener="#{verIncidenciasBean.resetPaginacion}"
+						render="@all"></f:ajax>
+				</h:commandButton>
+			</h:panelGrid>
+			<div>
+				<h:outputText
+					value="Mostrando #{verIncidenciasBean.paginacion.primerElementoPagina}..#{verIncidenciasBean.paginacion.ultimoElementoPagina} de #{verIncidenciasBean.paginacion.itemsCount}" />
+
+				<h:commandLink id="anterior" value="Anterior"
+					rendered="#{verIncidenciasBean.paginacion.hayPaginaAnterior}">
+					<f:ajax execute="@form" render="@form"
+						listener="#{verIncidenciasBean.paginaAnterior}" />
+				</h:commandLink>
+
+				<h:commandLink id="siguiente" value="Siguiente"
+					rendered="#{verIncidenciasBean.paginacion.hayPaginaSiguiente}">
+					<f:ajax execute="@form" render="@form"
+						listener="#{verIncidenciasBean.paginaSiguiente}" />
+				</h:commandLink>
+
+				<h:selectOneMenu value="#{verIncidenciasBean.slctnrpag}">
+					<f:selectItem itemLabel="5" itemValue="5" />
+					<f:selectItem itemLabel="10" itemValue="10" />
+					<f:selectItem itemLabel="15" itemValue="15" />
+					<f:selectItem itemLabel="20" itemValue="20" />
+					<f:ajax listener="#{verIncidenciasBean.resetPaginacion}"
+						render="@form" />
+				</h:selectOneMenu>
+			</div>
+			<h:dataTable var="incidencia"
+				rendered="#{not empty verIncidenciasBean.listadoIncidencias}"
+				value="#{verIncidenciasBean.listadoIncidencias}" border="1">
+				<f:facet name="header">
+					<h:outputText value="Listado de Incidencias"></h:outputText>
+				</f:facet>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Usuario">
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="#{incidencia.usuarioBean.nombre}">
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Prioridad">
+						</h:outputText>
+					</f:facet>
+					<h:outputText
+						value="#{incidencia.prioridadBean.descripcionPrioridad}">
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Fecha de creación">
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="#{incidencia.fechaIncidencia}">
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Departamento asignado">
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="#{incidencia.departamento.detalleDepartamento}">
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Estado">
+						</h:outputText>
+					</f:facet>
+					<h:outputText
+						value="#{incidencia.estadoincidencia.descripcionEstado}">
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Detalle">
+						</h:outputText>
+					</f:facet>
+					<h:outputText value="#{incidencia.detalleIncidencia}">
+					</h:outputText>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</h:panelGroup>
+</h:body>
+</html>

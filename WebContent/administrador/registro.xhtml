@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Formulario de registro</title>
+</h:head>
+<body>
+	<div>
+		<h:form>
+			<h:messages globalOnly="true" infoClass="advertencia"></h:messages>
+			<h:panelGrid>
+				<h:outputText value="Email"></h:outputText>
+				<h:inputText value="#{registarUsuarioBean.usuario.email}"
+					required="true" requiredMessage="Campo obligatorio">
+					<f:ajax event="blur" render="msgAltaUsuarioEmail"></f:ajax>
+				</h:inputText>
+				<h:outputText value="Password"></h:outputText>
+				<h:inputText value="#{registarUsuarioBean.usuario.password}"
+					required="true" requiredMessage="Campo obligatorio">
+					<f:ajax event="blur" render="msgAltaUsuarioPassword"></f:ajax>
+				</h:inputText>
+				<h:outputText value="Apellido 1"></h:outputText>
+				<h:inputText value="#{registarUsuarioBean.usuario.apellido1}"
+					required="true" requiredMessage="Campo obligatorio">
+					<f:ajax event="blur" render="msgAltaUsuarioApellido1"></f:ajax>
+				</h:inputText>
+				<h:outputText value="Apellido 2"></h:outputText>
+				<h:inputText value="#{registarUsuarioBean.usuario.apellido2}"
+					required="true" requiredMessage="Campo obligatorio">
+					<f:ajax event="blur" render="msgAltaUsuarioApellido2"></f:ajax>
+				</h:inputText>
+				<h:outputText value="Nombre"></h:outputText>
+				<h:inputText value="#{registarUsuarioBean.usuario.nombre}"
+					required="true" requiredMessage="Campo obligatorio">
+					<f:ajax event="blur" render="msgAltaUsuarioNombre"></f:ajax>
+				</h:inputText>
+				<h:outputText value="Teléfono"></h:outputText>
+				<h:inputText value="#{registarUsuarioBean.usuario.telefono}"
+					required="true" requiredMessage="Campo obligatorio">
+					<f:ajax event="blur" render="msgAltaUsuarioTelefono"></f:ajax>
+				</h:inputText>
+				<h:outputText value="Rol"></h:outputText>
+				<h:selectOneMenu value="#{registarUsuarioBean.idRol}">
+					<f:selectItems value="#{registarUsuarioBean.listadoRoles}"
+						var="rol" itemValue="#{rol.idRoles}" itemLabel="#{rol.detalleRoles}" />
+					<f:ajax render="@form" />
+				</h:selectOneMenu>
+				<h:outputText value="Departamento"
+					rendered="#{not empty registarUsuarioBean.listadoDepartamentos and registarUsuarioBean.idRol==3}"></h:outputText>
+				<h:selectOneMenu value="#{registarUsuarioBean.idDepartamento}"
+					rendered="#{not empty registarUsuarioBean.listadoDepartamentos and registarUsuarioBean.idRol==3}">
+					<f:selectItem itemLabel="--Seleccione un departamento--"
+						itemValue="0" />
+					<f:selectItems value="#{registarUsuarioBean.listadoDepartamentos}"
+						var="departamento" itemValue="#{departamento.idDepartamento}"
+						itemLabel="#{departamento.detalleDepartamento}" />
+				</h:selectOneMenu>
+				<h:commandButton action="#{registarUsuarioBean.nuevoRegistro()}"
+					value="Registrar">
+					<f:ajax execute="@form"
+						listener="#{verIncidenciasBean.resetPaginacion}" render="@all"></f:ajax>
+				</h:commandButton>
+			</h:panelGrid>
+		</h:form>
+	</div>
+</body>
+</html>
