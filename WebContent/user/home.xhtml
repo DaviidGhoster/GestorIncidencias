@@ -1,33 +1,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Página principal</title>
 </h:head>
 <h:body>
-	<a href="/GestorIncidencias/administrador/registro.xhtml">Registrar usuario</a>
-	<a href="/GestorIncidencias/user/nuevaIncidencia.xhtml">Nueva incidencia</a>
-	<a href="/GestorIncidencias/user/cambiarPassword.xhtml">Cambiar contraseña</a>
+	<a href="/GestorIncidencias/administrador/registro.xhtml">Registrar
+		usuario</a>
+	<a href="/GestorIncidencias/user/nuevaIncidencia.xhtml">Nueva
+		incidencia</a>
+	<a href="/GestorIncidencias/user/cambiarPassword.xhtml">Cambiar
+		contraseña</a>
 	<h:panelGroup rendered="#{verIncidenciasBean.paginacion.itemsCount>=0}"
 		id="resultadoBusqueda">
 		<h:form prependId="false">
 			<h:panelGrid>
 				<h:selectOneMenu value="#{verIncidenciasBean.estadoIncidencia}">
 					<f:selectItem itemLabel="Todas" itemValue="%" />
-					<f:selectItem itemLabel="Nuevas" itemValue="NUEVA" />
-					<f:selectItem itemLabel="Espera" itemValue="ESPERA" />
-					<f:selectItem itemLabel="Abiertas" itemValue="ABIERTA" />
-					<f:selectItem itemLabel="Resueltas" itemValue="RESUELTA" />
-					<f:selectItem itemLabel="Cerradas" itemValue="CERRADA" />
+					<f:selectItems value="#{verIncidenciasBean.listadoEstado}"
+						var="estado" itemValue="#{estado.idEstado}"
+						itemLabel="#{estado.descripcionEstado}"></f:selectItems>
 				</h:selectOneMenu>
 				<h:commandButton
 					action="#{verIncidenciasBean.getEstadoIncidenciaFiltrada()}"
 					value="Buscar">
 					<f:ajax execute="@form"
-						listener="#{verIncidenciasBean.resetPaginacion}"
-						render="@all"></f:ajax>
+						listener="#{verIncidenciasBean.resetPaginacion}" render="@all"></f:ajax>
 				</h:commandButton>
 			</h:panelGrid>
 			<div>
@@ -91,7 +91,8 @@
 						<h:outputText value="Departamento asignado">
 						</h:outputText>
 					</f:facet>
-					<h:outputText value="#{incidencia.departamento.detalleDepartamento}">
+					<h:outputText
+						value="#{incidencia.departamento.detalleDepartamento}">
 					</h:outputText>
 				</h:column>
 				<h:column>
@@ -110,6 +111,18 @@
 					</f:facet>
 					<h:outputText value="#{incidencia.detalleIncidencia}">
 					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Editar">
+						</h:outputText>
+					</f:facet>
+					<h:commandLink action="#{verIncidenciasBean.editarIncidencia()}"
+						value="Editar">
+						<f:setPropertyActionListener
+							target="#{editarIncidenciaBean.incidencia}" value="#{incidencia}">
+						</f:setPropertyActionListener>
+					</h:commandLink>
 				</h:column>
 			</h:dataTable>
 		</h:form>

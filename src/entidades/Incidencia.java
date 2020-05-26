@@ -21,12 +21,10 @@ import java.util.List;
 		@NamedQuery(name = "Incidencia.findByDepartamento", query = "SELECT inc FROM Incidencia inc where UPPER(INC.departamento.detalleDepartamento) LIKE UPPER(:departamento) AND UPPER(inc.estadoincidencia.idEstado) LIKE UPPER(:tipo) OR UPPER(inc.usuarioBean.email) LIKE UPPER(:email) AND UPPER(inc.estadoincidencia.idEstado) LIKE UPPER(:tipo)"),
 
 })
-@SequenceGenerator(name = "IncidenciaSeq", sequenceName = "S_INCIDENCIA", allocationSize = 1)
 public class Incidencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "IncidenciaSeq")
 	private Long idIncidencia;
 
 	@Column(name = "DETALLE")

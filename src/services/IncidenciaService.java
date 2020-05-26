@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJBException;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -17,7 +16,6 @@ import entidades.Estadoincidencia;
 import entidades.Incidencia;
 import entidades.Prioridad;
 import entidades.Usuario;
-import excepciones.IncidenciaException;
 
 /**
  * Session Bean implementation class IncidenciaService
@@ -104,23 +102,39 @@ public class IncidenciaService {
 		return listaIncidencia.size();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Incidencia> getLastIncidencia() {
+		return em.createQuery("Select i from Incidencia i order by i.idIncidencia desc").getResultList();
+	}
+
 	public void insertIncidencia(Incidencia i, String username, Long Prioridad, String Detalle)
 			throws RollbackException {
 		Usuario u = em.find(Usuario.class, username);
 		Prioridad p = em.find(Prioridad.class, Prioridad);
 		Estadoincidencia estado = em.find(Estadoincidencia.class, 1L);
+		i.setIdIncidencia(getLastIncidencia().get(0).getIdIncidencia() + 1);
 		i.setUsuarioBean(u);
 		i.setDetalleIncidencia(Detalle);
 		i.setFechaIncidencia(new Date());
 		i.setPrioridadBean(p);
 		i.setDepartamento(null);
 		i.setEstadoincidencia(estado);
-		System.out.println(i.getIdIncidencia()+","+i.getUsuarioBean().getEmail()+","+i.getPrioridadBean().getIdPrioridad()+","+i.getFechaIncidencia()+","+i.getEstadoincidencia()+","+i.getDetalleIncidencia());
+		System.out.println(i.getIdIncidencia() + "," + i.getUsuarioBean().getEmail() + ","
+				+ i.getPrioridadBean().getIdPrioridad() + "," + i.getFechaIncidencia() + "," + i.getEstadoincidencia()
+				+ "," + i.getDetalleIncidencia());
 		try {
 			em.persist(i);
 		} catch (RollbackException e) {
 			throw e;
 		}
 
+	}
+
+	public void actualizarIncidencia(Incidencia i) throws RollbackException {
+		try {
+			em.merge(i);
+		} catch (EJBException e) {
+			throw e;
+		}
 	}
 }

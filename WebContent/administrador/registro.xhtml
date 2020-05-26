@@ -12,35 +12,35 @@
 			<h:messages globalOnly="true" infoClass="advertencia"></h:messages>
 			<h:panelGrid>
 				<h:outputText value="Email"></h:outputText>
-				<h:inputText value="#{registarUsuarioBean.usuario.email}"
+				<h:inputText id="Email" value="#{registarUsuarioBean.usuario.email}"
 					required="true" requiredMessage="Campo obligatorio">
-					<f:ajax event="blur" render="msgAltaUsuarioEmail"></f:ajax>
 				</h:inputText>
+				<h:message for="Email" errorClass="advertencia"></h:message>
 				<h:outputText value="Password"></h:outputText>
-				<h:inputText value="#{registarUsuarioBean.usuario.password}"
+				<h:inputText id="Password" value="#{registarUsuarioBean.usuario.password}"
 					required="true" requiredMessage="Campo obligatorio">
-					<f:ajax event="blur" render="msgAltaUsuarioPassword"></f:ajax>
 				</h:inputText>
+				<h:message for="Password" errorClass="advertencia"></h:message>
 				<h:outputText value="Apellido 1"></h:outputText>
-				<h:inputText value="#{registarUsuarioBean.usuario.apellido1}"
+				<h:inputText id="Apellido1" value="#{registarUsuarioBean.usuario.apellido1}"
 					required="true" requiredMessage="Campo obligatorio">
-					<f:ajax event="blur" render="msgAltaUsuarioApellido1"></f:ajax>
 				</h:inputText>
+				<h:message for="Apellido1" errorClass="advertencia"></h:message>
 				<h:outputText value="Apellido 2"></h:outputText>
-				<h:inputText value="#{registarUsuarioBean.usuario.apellido2}"
+				<h:inputText id="Apellido2" value="#{registarUsuarioBean.usuario.apellido2}"
 					required="true" requiredMessage="Campo obligatorio">
-					<f:ajax event="blur" render="msgAltaUsuarioApellido2"></f:ajax>
 				</h:inputText>
+				<h:message for="Apellido2" errorClass="advertencia"></h:message>
 				<h:outputText value="Nombre"></h:outputText>
-				<h:inputText value="#{registarUsuarioBean.usuario.nombre}"
+				<h:inputText id="Nombre" value="#{registarUsuarioBean.usuario.nombre}"
 					required="true" requiredMessage="Campo obligatorio">
-					<f:ajax event="blur" render="msgAltaUsuarioNombre"></f:ajax>
 				</h:inputText>
+				<h:message for="Nombre" errorClass="advertencia"></h:message>
 				<h:outputText value="Teléfono"></h:outputText>
-				<h:inputText value="#{registarUsuarioBean.usuario.telefono}"
+				<h:inputText id="Telefono" value="#{registarUsuarioBean.usuario.telefono}"
 					required="true" requiredMessage="Campo obligatorio">
-					<f:ajax event="blur" render="msgAltaUsuarioTelefono"></f:ajax>
 				</h:inputText>
+				<h:message for="Tlefono" errorClass="advertencia"></h:message>
 				<h:outputText value="Rol"></h:outputText>
 				<h:selectOneMenu value="#{registarUsuarioBean.idRol}">
 					<f:selectItems value="#{registarUsuarioBean.listadoRoles}"

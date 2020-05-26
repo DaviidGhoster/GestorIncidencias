@@ -9,7 +9,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import entidades.Estadoincidencia;
 import entidades.Incidencia;
+import services.EstadoIncidenciaService;
 import services.IncidenciaService;
 import util.PaginacionHelper;
 import java.io.Serializable;
@@ -23,9 +25,12 @@ public class VerIncidenciasBean implements Serializable {
 	private static final long serialVersionUID = 8840963869733377589L;
 	@EJB
 	private IncidenciaService incidenciaService;
+	@EJB
+	private EstadoIncidenciaService estadoIncidenciaService;
 	private Incidencia incidencia;
 	private String estadoIncidencia = "%";
 	private List<Incidencia> listadoIncidencias;
+	private List<Estadoincidencia> listadoEstado;
 	private int slctnrpag = 5;
 	private PaginacionHelper paginacion;
 	ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
@@ -38,6 +43,7 @@ public class VerIncidenciasBean implements Serializable {
 	/*****************************************************************************/
 	@PostConstruct
 	public void ini() {
+		listadoEstado = estadoIncidenciaService.getAllEstadoIncidencia();
 		if (paginacion == null) {
 			paginacion = new PaginacionHelper(getSlctnrpag(), 0) {
 				@Override
@@ -54,6 +60,22 @@ public class VerIncidenciasBean implements Serializable {
 
 	public IncidenciaService getIncidenciaService() {
 		return incidenciaService;
+	}
+
+	public EstadoIncidenciaService getEstadoIncidenciaService() {
+		return estadoIncidenciaService;
+	}
+
+	public List<Estadoincidencia> getListadoEstado() {
+		return listadoEstado;
+	}
+
+	public void setEstadoIncidenciaService(EstadoIncidenciaService estadoIncidenciaService) {
+		this.estadoIncidenciaService = estadoIncidenciaService;
+	}
+
+	public void setListadoEstado(List<Estadoincidencia> listadoEstado) {
+		this.listadoEstado = listadoEstado;
 	}
 
 	public String getEstadoIncidencia() {
@@ -99,6 +121,10 @@ public class VerIncidenciasBean implements Serializable {
 
 	public PaginacionHelper getPaginacion() {
 		return paginacion;
+	}
+
+	public String editarIncidencia() {
+		return "/user/editarincidencia.xhtml&faces-redirect=true";
 	}
 
 	public void setPaginacion(PaginacionHelper paginacion) {

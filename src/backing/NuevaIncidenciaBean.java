@@ -58,7 +58,7 @@ public class NuevaIncidenciaBean implements Serializable {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, mensaje));
 		}
-
+		incidencia=new Incidencia();
 	}
 
 	public List<Prioridad> getListadoPrioridad() {

@@ -1,0 +1,202 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<f:metadata>
+		<f:viewParam name="idIncidencia"
+			value="#{editarIncidenciaBean.idIncidencia}" />
+		<f:viewParam name="incidencia"
+			value="#{editarIncidenciaBean.incidencia}" />
+		<f:viewAction action="#{editarIncidenciaBean.init()}" />
+	</f:metadata>
+	<title>Editar incidencia</title>
+</h:head>
+<h:body>
+	<a href="../user/home.xhtml">Inicio</a>
+	<h:panelGroup id="panel">
+		<div>
+			SECCION 1<br></br> DATOS DE LA INCIDENCIA<br></br> idIncidencia
+			--------><br></br>
+			<h:outputText value="#{editarIncidenciaBean.incidencia.idIncidencia}"></h:outputText>
+			<br></br> detalleDepartamento --------><br></br>
+			<h:outputText
+				value="#{editarIncidenciaBean.incidencia.departamento.detalleDepartamento}"></h:outputText>
+			<br></br> descripcionEstado --------><br></br>
+			<h:outputText
+				value="#{editarIncidenciaBean.incidencia.estadoincidencia.descripcionEstado}"></h:outputText>
+			<br></br> fechaIncidencia --------><br></br>
+			<h:outputText
+				value="#{editarIncidenciaBean.incidencia.fechaIncidencia}"></h:outputText>
+			<br></br> detalleIncidencia --------><br></br>
+			<h:outputText
+				value="#{editarIncidenciaBean.incidencia.detalleIncidencia}"></h:outputText>
+			<br></br> descripcionPrioridad --------><br></br>
+			<h:outputText
+				value="#{editarIncidenciaBean.incidencia.prioridadBean.descripcionPrioridad}"></h:outputText>
+			<br></br> email --------><br></br>
+			<h:outputText
+				value="#{editarIncidenciaBean.incidencia.usuarioBean.email}"></h:outputText>
+			<br></br> <br></br>
+		</div>
+		<div>
+			SECCION 2<br></br> COMENTARIOS<br></br>
+			<h:panelGroup id="resultadoBusqueda">
+				<h:form id="frmResultadoBusquedaIncidencias">
+					<h:dataTable var="socio"
+						value="#{editarIncidenciaBean.incidencia.comentarios}">
+						<f:facet name="header">
+							<h:outputText value="Listado de Socios"></h:outputText>
+						</f:facet>
+						<h:column id="idComentario">
+							<f:facet name="header">
+								<h:outputText value="detallesComentario">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{socio.idcomentario}">
+							</h:outputText>
+						</h:column>
+						<h:column id="detallesComentario">
+							<f:facet name="header">
+								<h:outputText value="detallesComentario">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{socio.detallesComentario}">
+							</h:outputText>
+						</h:column>
+						<h:column id="fechaComentario">
+							<f:facet name="header">
+								<h:outputText value="detallesComentario">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{socio.fechaComentario}">
+							</h:outputText>
+						</h:column>
+						<h:column id="emailComentario">
+							<f:facet name="header">
+								<h:outputText value="detallesComentario">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{socio.usuario.email}">
+							</h:outputText>
+						</h:column>
+					</h:dataTable>
+				</h:form>
+				<br></br>
+			</h:panelGroup>
+		</div>
+	</h:panelGroup>
+	<div>
+		SECCION 3<br></br> FORMULARIO MODIFICACION<br></br>
+		<h:form>
+Comentario:
+	<h:inputTextarea id="asun" value="#{editarIncidenciaBean.comentario}"></h:inputTextarea>
+			<h:outputText value="--#{editarIncidenciaBean.usuario.email}"></h:outputText>
+
+			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1}">
+
+				<f:selectItem itemLabel="Nueva" itemValue="1" />
+				<f:selectItem itemLabel="Abierta" itemValue="3" />
+				<f:selectItem itemLabel="Rechazada" itemValue="6" />
+				<f:ajax render="@all" />
+			</h:selectOneMenu>
+
+			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==3}">
+
+
+				<f:selectItem itemLabel="Abierta" itemValue="3" />
+				<f:selectItem itemLabel="Espera" itemValue="2" />
+				<f:selectItem itemLabel="Resuelta" itemValue="4" />
+				<f:ajax render="@all" />
+			</h:selectOneMenu>
+			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==2}">
+
+
+				<f:selectItem itemLabel="Espera" itemValue="2" />
+				<f:selectItem itemLabel="Abierta" itemValue="3" />
+				<f:ajax render="@all" />
+			</h:selectOneMenu>
+			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==4}">
+
+
+				<f:selectItem itemLabel="resuelta" itemValue="4" />
+				<f:selectItem itemLabel="Cerrada" itemValue="5" />
+				<f:ajax render="@all" />
+			</h:selectOneMenu>
+
+			<h:selectOneMenu value="#{editarIncidenciaBean.idDepartamento}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1 and editarIncidenciaBean.estado!=1}">
+				<f:selectItem itemLabel="--Seleccione un departamento--"
+					itemDisabled="true" />
+				<f:selectItems value="#{editarIncidenciaBean.listadoDepartamentos}"
+					var="departamento" itemValue="#{departamento.idDepartamento}"
+					itemLabel="#{departamento.detalleDepartamento}" />
+			</h:selectOneMenu>
+
+			<!--                         IDROL2                        -->
+			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1}">
+
+				<f:selectItem itemLabel="Nueva" itemValue="1" />
+				<f:selectItem itemLabel="Abierta" itemValue="3" />
+				<f:selectItem itemLabel="Rechazada" itemValue="6" />
+				<f:ajax render="@all" />
+			</h:selectOneMenu>
+			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==3}">
+				<f:selectItem itemLabel="Abierta" itemValue="3" />
+				<f:selectItem itemLabel="Espera" itemValue="2" />
+				<f:selectItem itemLabel="Resuelta" itemValue="4" />
+				<f:ajax render="@all" />
+			</h:selectOneMenu>
+			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==2}">
+				<f:selectItem itemLabel="Abierta" itemValue="3" />
+				<f:selectItem itemLabel="Espera" itemValue="2" />
+				<f:ajax render="@all" />
+			</h:selectOneMenu>
+			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==4}">
+				<f:selectItem itemLabel="resuelta" itemValue="4" />
+				<f:selectItem itemLabel="Cerrada" itemValue="5" />
+				<f:ajax render="@all" />
+			</h:selectOneMenu>
+			<h:selectOneMenu value="#{editarIncidenciaBean.idDepartamento}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1 and editarIncidenciaBean.estado!=1}">
+				<f:selectItem itemLabel="--Seleccione un departamento--"
+					itemDisabled="true" />
+				<f:selectItems value="#{editarIncidenciaBean.listadoDepartamentos}"
+					var="departamento" itemValue="#{departamento.idDepartamento}"
+					itemLabel="#{departamento.detalleDepartamento}" />
+			</h:selectOneMenu>
+			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==3 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==3}">
+				<f:selectItem itemLabel="Abierta" itemValue="3" />
+				<f:selectItem itemLabel="Espera" itemValue="2" />
+				<f:selectItem itemLabel="Resuelta" itemValue="4" />
+				<f:ajax render="@all" />
+			</h:selectOneMenu>
+			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==3 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==2}">
+				<f:selectItem itemLabel="Espera" itemValue="2" />
+				<f:selectItem itemLabel="Abierta" itemValue="3" />
+				<f:ajax render="@all" />
+			</h:selectOneMenu>
+			<h:commandButton id="mostrar"
+				action="#{editarIncidenciaBean.guardarVariable()}" value="Buscar">
+				<f:ajax execute="@form" render="@all resultadoBusqueda "></f:ajax>
+			</h:commandButton>
+			<h:commandButton update="resultadoBusqueda" id="resultadoBusqueda"
+				value="Button" action="#{editarIncidenciaBean.guardarVariable()}" />
+			<h:messages globalOnly="true" infoClass="advertencia"></h:messages>
+		</h:form>
+	</div>
+</h:body>
+</html>
