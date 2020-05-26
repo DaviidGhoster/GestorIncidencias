@@ -4,3 +4,28 @@ textarea{
 	min-height: 100px;
 	max-height: 100px;
 }
+body{
+	background-color:#a6ffc0;
+}
+.form{
+	background-color:#b7bfdf; 
+	padding:50px 50px 50px 50px;
+}
+/*ZONA HOME*/
+.home{
+	background-color: white;
+	padding:40px;
+}
+/*ZONA DE EDITAR INCIDENCIA*/
+.datos_incidencia{
+	background-color:#d3afb0;
+	padding-top:20px;
+}
+.form_editar{
+	background-color:#cdcbe4;
+	padding-top:30px;
+	padding-bot:30px;
+}
+.tabla_editar{
+	background-color: #e9e9e9;
+}

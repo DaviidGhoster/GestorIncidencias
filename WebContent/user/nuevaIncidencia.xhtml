@@ -5,29 +5,39 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 <h:head>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+		crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="../resources/estilos.css" />
 </h:head>
 <h:body>
 	<a href="/GestorIncidencias/user/home.xhtml">Index</a>
-	<div>
-		<h:form>
-			<h:messages globalOnly="true" infoClass="advertencia"></h:messages>
-			<h:panelGrid>
-				<h:outputText value="Prioridad"></h:outputText>
-				<h:selectOneMenu value="#{nuevaIncidenciaBean.prioridad}">
-					<f:selectItems value="#{nuevaIncidenciaBean.listadoPrioridad}"
-						var="prioridad" itemValue="#{prioridad.idPrioridad}"
-						itemLabel="#{prioridad.descripcionPrioridad}" />
-				</h:selectOneMenu>
-				<h:outputText value="Detalle"></h:outputText>
-				<h:inputTextarea value="#{nuevaIncidenciaBean.detalle}"
-					required="true" requiredMessage="Campo obligatorio">
-				</h:inputTextarea>
-				<h:commandButton action="#{nuevaIncidenciaBean.nuevaIncidencia()}"
-					value="Registrar">
-				</h:commandButton>
-			</h:panelGrid>
-		</h:form>
+	<div class="container">
+		<div class="row justify-content-center">
+			<h:form class="form">
+				<h:messages globalOnly="true" infoClass="advertencia"></h:messages>
+				<h:panelGrid>
+					<h:outputText value="Prioridad"></h:outputText>
+					<h:selectOneMenu value="#{nuevaIncidenciaBean.prioridad}">
+						<f:selectItems value="#{nuevaIncidenciaBean.listadoPrioridad}"
+							var="prioridad" itemValue="#{prioridad.idPrioridad}"
+							itemLabel="#{prioridad.descripcionPrioridad}" />
+					</h:selectOneMenu>
+					<h:outputText value="Asunto"></h:outputText>
+					<h:inputTextarea value="#{nuevaIncidenciaBean.detalle}"
+						required="true" requiredMessage="Campo obligatorio">
+					</h:inputTextarea>
+					<h:outputText value="Comentario"></h:outputText>
+					<h:inputTextarea value="#{nuevaIncidenciaBean.comentario}"
+						required="true" requiredMessage="Campo obligatorio">
+					</h:inputTextarea>
+					<h:commandButton action="#{nuevaIncidenciaBean.nuevaIncidencia()}" class="btn btn-primary"
+						value="Registrar">
+					</h:commandButton>
+				</h:panelGrid>
+			</h:form>
+		</div>
 	</div>
 </h:body>
 </html>

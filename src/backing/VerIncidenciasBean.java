@@ -5,14 +5,18 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.persistence.RollbackException;
 
 import entidades.Estadoincidencia;
 import entidades.Incidencia;
+import entidades.Usuario;
 import services.EstadoIncidenciaService;
 import services.IncidenciaService;
+import services.UsuarioService;
 import util.PaginacionHelper;
 import java.io.Serializable;
 
@@ -27,12 +31,15 @@ public class VerIncidenciasBean implements Serializable {
 	private IncidenciaService incidenciaService;
 	@EJB
 	private EstadoIncidenciaService estadoIncidenciaService;
+	@EJB
+	private UsuarioService usuarioService;
 	private Incidencia incidencia;
 	private String estadoIncidencia = "%";
 	private List<Incidencia> listadoIncidencias;
 	private List<Estadoincidencia> listadoEstado;
 	private int slctnrpag = 5;
 	private PaginacionHelper paginacion;
+	Usuario u = new Usuario();
 	ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 	String username = ec.getRemoteUser();
 
@@ -43,6 +50,7 @@ public class VerIncidenciasBean implements Serializable {
 	/*****************************************************************************/
 	@PostConstruct
 	public void ini() {
+		u = usuarioService.getUsuarioById(username).get(0);
 		listadoEstado = estadoIncidenciaService.getAllEstadoIncidencia();
 		if (paginacion == null) {
 			paginacion = new PaginacionHelper(getSlctnrpag(), 0) {
@@ -57,6 +65,53 @@ public class VerIncidenciasBean implements Serializable {
 	}
 
 	/******************************************************************************/
+
+	public void eliminarIncidencia(long idincidencia) {
+		try {
+			incidenciaService.deleteIncidencia(idincidencia);
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro borrado con éxito",
+					"Registro borrado con éxito"));
+		} catch (RollbackException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			String mensaje = e.getCause().getCause().getMessage();
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, mensaje));
+		}
+	}
+
+	public UsuarioService getUsuarioService() {
+		return usuarioService;
+	}
+
+	public Usuario getU() {
+		return u;
+	}
+
+	public void setUsuarioService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
+
+	public void setU(Usuario u) {
+		this.u = u;
+	}
+
+	public ExternalContext getEc() {
+		return ec;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setEc(ExternalContext ec) {
+		this.ec = ec;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public IncidenciaService getIncidenciaService() {
 		return incidenciaService;

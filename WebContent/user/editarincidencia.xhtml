@@ -6,197 +6,231 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+		crossorigin="anonymous" />
+	<link rel="stylesheet" type="text/css" href="../resources/estilos.css" />
 	<f:metadata>
 		<f:viewParam name="idIncidencia"
 			value="#{editarIncidenciaBean.idIncidencia}" />
 		<f:viewParam name="incidencia"
 			value="#{editarIncidenciaBean.incidencia}" />
-		<f:viewAction action="#{editarIncidenciaBean.init()}" />
 	</f:metadata>
 	<title>Editar incidencia</title>
 </h:head>
 <h:body>
+	<f:ajax execute="@this" listener="#{editarIncidenciaBean.init()}"
+		render="@all" event="unload"/>
 	<a href="../user/home.xhtml">Inicio</a>
-	<h:panelGroup id="panel">
-		<div>
-			SECCION 1<br></br> DATOS DE LA INCIDENCIA<br></br> idIncidencia
-			--------><br></br>
-			<h:outputText value="#{editarIncidenciaBean.incidencia.idIncidencia}"></h:outputText>
-			<br></br> detalleDepartamento --------><br></br>
-			<h:outputText
-				value="#{editarIncidenciaBean.incidencia.departamento.detalleDepartamento}"></h:outputText>
-			<br></br> descripcionEstado --------><br></br>
-			<h:outputText
-				value="#{editarIncidenciaBean.incidencia.estadoincidencia.descripcionEstado}"></h:outputText>
-			<br></br> fechaIncidencia --------><br></br>
-			<h:outputText
-				value="#{editarIncidenciaBean.incidencia.fechaIncidencia}"></h:outputText>
-			<br></br> detalleIncidencia --------><br></br>
-			<h:outputText
-				value="#{editarIncidenciaBean.incidencia.detalleIncidencia}"></h:outputText>
-			<br></br> descripcionPrioridad --------><br></br>
-			<h:outputText
-				value="#{editarIncidenciaBean.incidencia.prioridadBean.descripcionPrioridad}"></h:outputText>
-			<br></br> email --------><br></br>
-			<h:outputText
-				value="#{editarIncidenciaBean.incidencia.usuarioBean.email}"></h:outputText>
-			<br></br> <br></br>
-		</div>
-		<div>
-			SECCION 2<br></br> COMENTARIOS<br></br>
-			<h:panelGroup id="resultadoBusqueda">
-				<h:form id="frmResultadoBusquedaIncidencias">
-					<h:dataTable var="socio"
-						value="#{editarIncidenciaBean.incidencia.comentarios}">
-						<f:facet name="header">
-							<h:outputText value="Listado de Socios"></h:outputText>
-						</f:facet>
-						<h:column id="idComentario">
-							<f:facet name="header">
-								<h:outputText value="detallesComentario">
-								</h:outputText>
-							</f:facet>
-							<h:outputText value="#{socio.idcomentario}">
-							</h:outputText>
-						</h:column>
-						<h:column id="detallesComentario">
-							<f:facet name="header">
-								<h:outputText value="detallesComentario">
-								</h:outputText>
-							</f:facet>
-							<h:outputText value="#{socio.detallesComentario}">
-							</h:outputText>
-						</h:column>
-						<h:column id="fechaComentario">
-							<f:facet name="header">
-								<h:outputText value="detallesComentario">
-								</h:outputText>
-							</f:facet>
-							<h:outputText value="#{socio.fechaComentario}">
-							</h:outputText>
-						</h:column>
-						<h:column id="emailComentario">
-							<f:facet name="header">
-								<h:outputText value="detallesComentario">
-								</h:outputText>
-							</f:facet>
-							<h:outputText value="#{socio.usuario.email}">
-							</h:outputText>
-						</h:column>
-					</h:dataTable>
+	<div class="container">
+		<h:panelGroup id="panel">
+			<div class="row">
+				<h3>DATOS DE LA INCIDENCIA</h3>
+			</div>
+			<div class="row justify-content-around datos_incidencia">
+				<div class="col-auto">
+					<p>
+						<b>Nº de incidencia:</b>
+						<h:outputText class="ml-1"
+							value="#{editarIncidenciaBean.incidencia.idIncidencia}"></h:outputText>
+					</p>
+				</div>
+				<div class="col-auto">
+					<p>
+						<b>Departamento asignado:</b>
+						<h:outputText class="ml-1"
+							value="#{editarIncidenciaBean.incidencia.departamento.detalleDepartamento}"></h:outputText>
+					</p>
+				</div>
+				<div class="col-auto">
+					<p>
+						<b>Estado:</b>
+						<h:outputText class="ml-1"
+							value="#{editarIncidenciaBean.incidencia.estadoincidencia.descripcionEstado}"></h:outputText>
+					</p>
+				</div>
+				<div class="col-auto">
+					<p>
+						<b>Fecha de creación:</b>
+						<h:outputText class="ml-1"
+							value="#{editarIncidenciaBean.incidencia.fechaIncidencia}"></h:outputText>
+					</p>
+				</div>
+				<div class="col-auto">
+					<p>
+						<b>Asunto:</b>
+						<h:outputText class="ml-1"
+							value="#{editarIncidenciaBean.incidencia.detalleIncidencia}"></h:outputText>
+					</p>
+				</div>
+				<div class="col-auto">
+					<p>
+						<b>Prioridad:</b>
+						<h:outputText class="ml-1"
+							value="#{editarIncidenciaBean.incidencia.prioridadBean.descripcionPrioridad}"></h:outputText>
+					</p>
+				</div>
+				<div class="col-auto">
+					<p>
+						<b>Usuario que la creó:</b>
+						<h:outputText class="ml-1"
+							value="#{editarIncidenciaBean.incidencia.usuarioBean.email}"></h:outputText>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<h3>FORMULARIO</h3>
+			</div>
+			<div class="row justify-content-center form_editar">
+				<h:form>
+					<div class="col-auto mb-2">
+						Comentario:
+						<h:inputText value="#{editarIncidenciaBean.comentario}"></h:inputText>
+					</div>
+					<div class="col-auto mb-2 ml-5">
+						<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1}">
+							<f:selectItem itemLabel="Nueva" itemValue="1" />
+							<f:selectItem itemLabel="Abierta" itemValue="3" />
+							<f:selectItem itemLabel="Rechazada" itemValue="6" />
+							<f:ajax render="@all" />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==3}">
+							<f:selectItem itemLabel="Abierta" itemValue="3" />
+							<f:selectItem itemLabel="Espera" itemValue="2" />
+							<f:selectItem itemLabel="Resuelta" itemValue="4" />
+							<f:ajax render="@all" />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==2}">
+							<f:selectItem itemLabel="Espera" itemValue="2" />
+							<f:selectItem itemLabel="Abierta" itemValue="3" />
+							<f:ajax render="@all" />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==4}">
+							<f:selectItem itemLabel="resuelta" itemValue="4" />
+							<f:selectItem itemLabel="Cerrada" itemValue="5" />
+							<f:ajax render="@all" />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1}">
+							<f:selectItem itemLabel="Nueva" itemValue="1" />
+							<f:selectItem itemLabel="Abierta" itemValue="3" />
+							<f:selectItem itemLabel="Rechazada" itemValue="6" />
+							<f:ajax render="@all" />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==3}">
+							<f:selectItem itemLabel="Abierta" itemValue="3" />
+							<f:selectItem itemLabel="Espera" itemValue="2" />
+							<f:selectItem itemLabel="Resuelta" itemValue="4" />
+							<f:ajax render="@all" />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==2}">
+							<f:selectItem itemLabel="Abierta" itemValue="3" />
+							<f:selectItem itemLabel="Espera" itemValue="2" />
+							<f:ajax render="@all" />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==4}">
+							<f:selectItem itemLabel="Resuelta" itemValue="4" />
+							<f:selectItem itemLabel="Cerrada" itemValue="5" />
+							<f:ajax render="@all" />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==3 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==3}">
+							<f:selectItem itemLabel="Abierta" itemValue="3" />
+							<f:selectItem itemLabel="Espera" itemValue="2" />
+							<f:selectItem itemLabel="Resuelta" itemValue="4" />
+							<f:ajax render="@all" />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==3 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==2}">
+							<f:selectItem itemLabel="Espera" itemValue="2" />
+							<f:selectItem itemLabel="Abierta" itemValue="3" />
+							<f:ajax render="@all" />
+						</h:selectOneMenu>
+					</div>
+					<div class="col-auto">
+						<h:selectOneMenu value="#{editarIncidenciaBean.idDepartamento}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1 and editarIncidenciaBean.estado!=1}">
+							<f:selectItem itemLabel="--Seleccione un departamento--"
+								itemDisabled="true" />
+							<f:selectItems
+								value="#{editarIncidenciaBean.listadoDepartamentos}"
+								var="departamento" itemValue="#{departamento.idDepartamento}"
+								itemLabel="#{departamento.detalleDepartamento}" />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{editarIncidenciaBean.idDepartamento}"
+							rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1 and editarIncidenciaBean.estado!=1}">
+							<f:selectItem itemLabel="--Seleccione un departamento--"
+								itemDisabled="true" />
+							<f:selectItems
+								value="#{editarIncidenciaBean.listadoDepartamentos}"
+								var="departamento" itemValue="#{departamento.idDepartamento}"
+								itemLabel="#{departamento.detalleDepartamento}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="col-auto mt-4 mb-4">
+						<h:commandButton id="mostrar" class="btn btn-primary ml-5"
+							action="#{editarIncidenciaBean.guardarVariable()}"
+							value="Actualizar">
+							<f:ajax execute="@form" render="@all"></f:ajax>
+						</h:commandButton>
+					</div>
 				</h:form>
-				<br></br>
-			</h:panelGroup>
-		</div>
-	</h:panelGroup>
-	<div>
-		SECCION 3<br></br> FORMULARIO MODIFICACION<br></br>
-		<h:form>
-Comentario:
-	<h:inputTextarea id="asun" value="#{editarIncidenciaBean.comentario}"></h:inputTextarea>
-			<h:outputText value="--#{editarIncidenciaBean.usuario.email}"></h:outputText>
-
-			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1}">
-
-				<f:selectItem itemLabel="Nueva" itemValue="1" />
-				<f:selectItem itemLabel="Abierta" itemValue="3" />
-				<f:selectItem itemLabel="Rechazada" itemValue="6" />
-				<f:ajax render="@all" />
-			</h:selectOneMenu>
-
-			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==3}">
-
-
-				<f:selectItem itemLabel="Abierta" itemValue="3" />
-				<f:selectItem itemLabel="Espera" itemValue="2" />
-				<f:selectItem itemLabel="Resuelta" itemValue="4" />
-				<f:ajax render="@all" />
-			</h:selectOneMenu>
-			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==2}">
-
-
-				<f:selectItem itemLabel="Espera" itemValue="2" />
-				<f:selectItem itemLabel="Abierta" itemValue="3" />
-				<f:ajax render="@all" />
-			</h:selectOneMenu>
-			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==4}">
-
-
-				<f:selectItem itemLabel="resuelta" itemValue="4" />
-				<f:selectItem itemLabel="Cerrada" itemValue="5" />
-				<f:ajax render="@all" />
-			</h:selectOneMenu>
-
-			<h:selectOneMenu value="#{editarIncidenciaBean.idDepartamento}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==1 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1 and editarIncidenciaBean.estado!=1}">
-				<f:selectItem itemLabel="--Seleccione un departamento--"
-					itemDisabled="true" />
-				<f:selectItems value="#{editarIncidenciaBean.listadoDepartamentos}"
-					var="departamento" itemValue="#{departamento.idDepartamento}"
-					itemLabel="#{departamento.detalleDepartamento}" />
-			</h:selectOneMenu>
-
-			<!--                         IDROL2                        -->
-			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1}">
-
-				<f:selectItem itemLabel="Nueva" itemValue="1" />
-				<f:selectItem itemLabel="Abierta" itemValue="3" />
-				<f:selectItem itemLabel="Rechazada" itemValue="6" />
-				<f:ajax render="@all" />
-			</h:selectOneMenu>
-			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==3}">
-				<f:selectItem itemLabel="Abierta" itemValue="3" />
-				<f:selectItem itemLabel="Espera" itemValue="2" />
-				<f:selectItem itemLabel="Resuelta" itemValue="4" />
-				<f:ajax render="@all" />
-			</h:selectOneMenu>
-			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==2}">
-				<f:selectItem itemLabel="Abierta" itemValue="3" />
-				<f:selectItem itemLabel="Espera" itemValue="2" />
-				<f:ajax render="@all" />
-			</h:selectOneMenu>
-			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==4}">
-				<f:selectItem itemLabel="resuelta" itemValue="4" />
-				<f:selectItem itemLabel="Cerrada" itemValue="5" />
-				<f:ajax render="@all" />
-			</h:selectOneMenu>
-			<h:selectOneMenu value="#{editarIncidenciaBean.idDepartamento}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==2 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==1 and editarIncidenciaBean.estado!=1}">
-				<f:selectItem itemLabel="--Seleccione un departamento--"
-					itemDisabled="true" />
-				<f:selectItems value="#{editarIncidenciaBean.listadoDepartamentos}"
-					var="departamento" itemValue="#{departamento.idDepartamento}"
-					itemLabel="#{departamento.detalleDepartamento}" />
-			</h:selectOneMenu>
-			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==3 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==3}">
-				<f:selectItem itemLabel="Abierta" itemValue="3" />
-				<f:selectItem itemLabel="Espera" itemValue="2" />
-				<f:selectItem itemLabel="Resuelta" itemValue="4" />
-				<f:ajax render="@all" />
-			</h:selectOneMenu>
-			<h:selectOneMenu value="#{editarIncidenciaBean.estado}"
-				rendered="#{editarIncidenciaBean.usuario.grupousuario.id.idrol==3 and editarIncidenciaBean.incidencia.estadoincidencia.idEstado==2}">
-				<f:selectItem itemLabel="Espera" itemValue="2" />
-				<f:selectItem itemLabel="Abierta" itemValue="3" />
-				<f:ajax render="@all" />
-			</h:selectOneMenu>
-			<h:commandButton id="mostrar"
-				action="#{editarIncidenciaBean.guardarVariable()}" value="Buscar">
-				<f:ajax execute="@form" render="@all resultadoBusqueda "></f:ajax>
-			</h:commandButton>
-			<h:commandButton update="resultadoBusqueda" id="resultadoBusqueda"
-				value="Button" action="#{editarIncidenciaBean.guardarVariable()}" />
-			<h:messages globalOnly="true" infoClass="advertencia"></h:messages>
-		</h:form>
+			</div>
+			<div class="row">
+				<h3>COMENTARIOS</h3>
+			</div>
+			<div class="row table-responsive">
+				<h:panelGroup>
+					<h:form>
+						<h:dataTable var="comentario"
+							class="table text-center table-striped tabla_editar"
+							value="#{editarIncidenciaBean.incidencia.comentarios}">
+							<h:column id="idComentario">
+								<f:facet name="header">
+									<h:outputText value="Id Comentario">
+									</h:outputText>
+								</f:facet>
+								<h:outputText value="#{comentario.idcomentario}">
+								</h:outputText>
+							</h:column>
+							<h:column id="detallesComentario">
+								<f:facet name="header">
+									<h:outputText value="Comentario">
+									</h:outputText>
+								</f:facet>
+								<h:outputText value="#{comentario.detallesComentario}">
+								</h:outputText>
+							</h:column>
+							<h:column id="fechaComentario">
+								<f:facet name="header">
+									<h:outputText value="Fecha">
+									</h:outputText>
+								</f:facet>
+								<h:outputText value="#{comentario.fechaComentario}">
+								</h:outputText>
+							</h:column>
+							<h:column id="emailComentario">
+								<f:facet name="header">
+									<h:outputText value="Usuario">
+									</h:outputText>
+								</f:facet>
+								<h:outputText value="#{comentario.usuario.email}">
+								</h:outputText>
+							</h:column>
+						</h:dataTable>
+					</h:form>
+					<br></br>
+				</h:panelGroup>
+			</div>
+		</h:panelGroup>
 	</div>
 </h:body>
 </html>

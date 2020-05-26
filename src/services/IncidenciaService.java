@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
 
+import entidades.Comentario;
 import entidades.Estadoincidencia;
 import entidades.Incidencia;
 import entidades.Prioridad;
@@ -107,7 +108,7 @@ public class IncidenciaService {
 		return em.createQuery("Select i from Incidencia i order by i.idIncidencia desc").getResultList();
 	}
 
-	public void insertIncidencia(Incidencia i, String username, Long Prioridad, String Detalle)
+	public void insertIncidencia(Incidencia i, String username, Long Prioridad, String Detalle, Comentario comentario)
 			throws RollbackException {
 		Usuario u = em.find(Usuario.class, username);
 		Prioridad p = em.find(Prioridad.class, Prioridad);
@@ -119,15 +120,22 @@ public class IncidenciaService {
 		i.setPrioridadBean(p);
 		i.setDepartamento(null);
 		i.setEstadoincidencia(estado);
-		System.out.println(i.getIdIncidencia() + "," + i.getUsuarioBean().getEmail() + ","
-				+ i.getPrioridadBean().getIdPrioridad() + "," + i.getFechaIncidencia() + "," + i.getEstadoincidencia()
-				+ "," + i.getDetalleIncidencia());
 		try {
 			em.persist(i);
+			em.persist(comentario);
 		} catch (RollbackException e) {
 			throw e;
 		}
 
+	}
+
+	public void deleteIncidencia(long i) {
+		Incidencia inc=em.find(Incidencia.class, i);
+		try {
+			em.remove(inc);
+		} catch (RollbackException e) {
+			throw e;
+		}
 	}
 
 	public void actualizarIncidencia(Incidencia i) throws RollbackException {

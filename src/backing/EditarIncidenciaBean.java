@@ -66,13 +66,11 @@ public class EditarIncidenciaBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		System.out.println(idIncidencia);
 		usuario = usuarioService.getUsuarioById(username).get(0);
-		System.out.println(usuario.getEmail());
 		listadoComenentarios = comentarioService.getComentarioById(idIncidencia);
 		listadoDepartamentos = departamentoService.getDepartamentos();
-
 	}
+	
 
 	public UsuarioService getUsuarioService() {
 		return usuarioService;
@@ -224,9 +222,6 @@ public class EditarIncidenciaBean implements Serializable {
 
 	public void guardarVariable() {
 
-		System.out.println(estado);
-		System.out.println(idDepartamento);
-		System.out.println(comentario);
 		if (idDepartamento != null) {
 			int idDepartament = Integer.parseInt(idDepartamento);
 			Departamento dep = departamentoService.getDepartamentoById(idDepartament).get(0);
@@ -245,10 +240,12 @@ public class EditarIncidenciaBean implements Serializable {
 		c.setIdcomentario(co);
 		String l = String.valueOf(estado);
 		Estadoincidencia es = estadoService.getEstado(l).get(0);
-		System.out.println(incidencia.getIdIncidencia() + "---------IdIncidencia");
 		try {
 			System.out.println(incidencia.getDepartamento().getIdDepartamento());
 			comentarioService.newComentario(c);
+			List<Comentario> list=incidencia.getComentarios();
+    		list.add(c);
+    		incidencia.setComentarios(list);
 			incidencia.setEstadoincidencia(es);
 			incidenciaService.actualizarIncidencia(incidencia);
 
@@ -262,5 +259,6 @@ public class EditarIncidenciaBean implements Serializable {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, mensaje));
 		}
+		comentario="";
 	}
 }

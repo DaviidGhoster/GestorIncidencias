@@ -30,6 +30,6 @@ public class EstadoIncidenciaService {
 
 	@SuppressWarnings("unchecked")
 	public List<Estadoincidencia> getEstado(String id) {
-		return em.createNamedQuery("Select e from Estadoincidencia e where e.idEstado=:id").setParameter("id", id).getResultList();
+		return em.createNamedQuery("Estadoincidencia.findById").setParameter("id", id).getResultList();
 	}
 }

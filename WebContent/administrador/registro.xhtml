@@ -4,66 +4,80 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+		crossorigin="anonymous" />
+	<link rel="stylesheet" type="text/css" href="../resources/estilos.css" />
 	<title>Formulario de registro</title>
 </h:head>
 <body>
-	<div>
-		<h:form>
-			<h:messages globalOnly="true" infoClass="advertencia"></h:messages>
-			<h:panelGrid>
-				<h:outputText value="Email"></h:outputText>
-				<h:inputText id="Email" value="#{registarUsuarioBean.usuario.email}"
-					required="true" requiredMessage="Campo obligatorio">
-				</h:inputText>
-				<h:message for="Email" errorClass="advertencia"></h:message>
-				<h:outputText value="Password"></h:outputText>
-				<h:inputText id="Password" value="#{registarUsuarioBean.usuario.password}"
-					required="true" requiredMessage="Campo obligatorio">
-				</h:inputText>
-				<h:message for="Password" errorClass="advertencia"></h:message>
-				<h:outputText value="Apellido 1"></h:outputText>
-				<h:inputText id="Apellido1" value="#{registarUsuarioBean.usuario.apellido1}"
-					required="true" requiredMessage="Campo obligatorio">
-				</h:inputText>
-				<h:message for="Apellido1" errorClass="advertencia"></h:message>
-				<h:outputText value="Apellido 2"></h:outputText>
-				<h:inputText id="Apellido2" value="#{registarUsuarioBean.usuario.apellido2}"
-					required="true" requiredMessage="Campo obligatorio">
-				</h:inputText>
-				<h:message for="Apellido2" errorClass="advertencia"></h:message>
-				<h:outputText value="Nombre"></h:outputText>
-				<h:inputText id="Nombre" value="#{registarUsuarioBean.usuario.nombre}"
-					required="true" requiredMessage="Campo obligatorio">
-				</h:inputText>
-				<h:message for="Nombre" errorClass="advertencia"></h:message>
-				<h:outputText value="Teléfono"></h:outputText>
-				<h:inputText id="Telefono" value="#{registarUsuarioBean.usuario.telefono}"
-					required="true" requiredMessage="Campo obligatorio">
-				</h:inputText>
-				<h:message for="Tlefono" errorClass="advertencia"></h:message>
-				<h:outputText value="Rol"></h:outputText>
-				<h:selectOneMenu value="#{registarUsuarioBean.idRol}">
-					<f:selectItems value="#{registarUsuarioBean.listadoRoles}"
-						var="rol" itemValue="#{rol.idRoles}" itemLabel="#{rol.detalleRoles}" />
-					<f:ajax render="@form" />
-				</h:selectOneMenu>
-				<h:outputText value="Departamento"
-					rendered="#{not empty registarUsuarioBean.listadoDepartamentos and registarUsuarioBean.idRol==3}"></h:outputText>
-				<h:selectOneMenu value="#{registarUsuarioBean.idDepartamento}"
-					rendered="#{not empty registarUsuarioBean.listadoDepartamentos and registarUsuarioBean.idRol==3}">
-					<f:selectItem itemLabel="--Seleccione un departamento--"
-						itemValue="0" />
-					<f:selectItems value="#{registarUsuarioBean.listadoDepartamentos}"
-						var="departamento" itemValue="#{departamento.idDepartamento}"
-						itemLabel="#{departamento.detalleDepartamento}" />
-				</h:selectOneMenu>
-				<h:commandButton action="#{registarUsuarioBean.nuevoRegistro()}"
-					value="Registrar">
-					<f:ajax execute="@form"
-						listener="#{verIncidenciasBean.resetPaginacion}" render="@all"></f:ajax>
-				</h:commandButton>
-			</h:panelGrid>
-		</h:form>
+	<div class="container">
+		<div class="row justify-content-center mt-5 p-5">
+			<h:form class="form">
+				<h:messages globalOnly="true" infoClass="advertencia"></h:messages>
+				<h:panelGrid>
+					<h:outputText value="Email"></h:outputText>
+					<h:inputText id="Email"
+						value="#{registarUsuarioBean.usuario.email}" required="true"
+						requiredMessage="Campo obligatorio">
+					</h:inputText>
+					<h:message for="Email" errorClass="advertencia"></h:message>
+					<h:outputText value="Password"></h:outputText>
+					<h:inputText id="Password"
+						value="#{registarUsuarioBean.usuario.password}" required="true"
+						requiredMessage="Campo obligatorio">
+					</h:inputText>
+					<h:message for="Password" errorClass="advertencia"></h:message>
+					<h:outputText value="Apellido 1"></h:outputText>
+					<h:inputText id="Apellido1"
+						value="#{registarUsuarioBean.usuario.apellido1}" required="true"
+						requiredMessage="Campo obligatorio">
+					</h:inputText>
+					<h:message for="Apellido1" errorClass="advertencia"></h:message>
+					<h:outputText value="Apellido 2"></h:outputText>
+					<h:inputText id="Apellido2"
+						value="#{registarUsuarioBean.usuario.apellido2}" required="true"
+						requiredMessage="Campo obligatorio">
+					</h:inputText>
+					<h:message for="Apellido2" errorClass="advertencia"></h:message>
+					<h:outputText value="Nombre"></h:outputText>
+					<h:inputText id="Nombre"
+						value="#{registarUsuarioBean.usuario.nombre}" required="true"
+						requiredMessage="Campo obligatorio">
+					</h:inputText>
+					<h:message for="Nombre" errorClass="advertencia"></h:message>
+					<h:outputText value="Teléfono"></h:outputText>
+					<h:inputText id="Telefono"
+						value="#{registarUsuarioBean.usuario.telefono}" required="true"
+						requiredMessage="Campo obligatorio">
+					</h:inputText>
+					<h:message for="Tlefono" errorClass="advertencia"></h:message>
+					<h:outputText value="Rol"></h:outputText>
+					<h:selectOneMenu value="#{registarUsuarioBean.idRol}">
+						<f:selectItems value="#{registarUsuarioBean.listadoRoles}"
+							var="rol" itemValue="#{rol.idRoles}"
+							itemLabel="#{rol.detalleRoles}" />
+						<f:ajax render="@form" />
+					</h:selectOneMenu>
+					<h:outputText value="Departamento"
+						rendered="#{not empty registarUsuarioBean.listadoDepartamentos and registarUsuarioBean.idRol==3}"></h:outputText>
+					<h:selectOneMenu value="#{registarUsuarioBean.idDepartamento}"
+						rendered="#{not empty registarUsuarioBean.listadoDepartamentos and registarUsuarioBean.idRol==3}">
+						<f:selectItem itemLabel="--Seleccione un departamento--"
+							itemValue="0" />
+						<f:selectItems value="#{registarUsuarioBean.listadoDepartamentos}"
+							var="departamento" itemValue="#{departamento.idDepartamento}"
+							itemLabel="#{departamento.detalleDepartamento}" />
+					</h:selectOneMenu>
+					<h:commandButton action="#{registarUsuarioBean.nuevoRegistro()}" class="btn btn-primary"
+						value="Registrar">
+						<f:ajax execute="@form"
+							listener="#{verIncidenciasBean.resetPaginacion}" render="@all"></f:ajax>
+					</h:commandButton>
+				</h:panelGrid>
+			</h:form>
+		</div>
 	</div>
 </body>
 </html>
