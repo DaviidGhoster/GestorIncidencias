@@ -70,7 +70,6 @@ public class EditarIncidenciaBean implements Serializable {
 		listadoComenentarios = comentarioService.getComentarioById(idIncidencia);
 		listadoDepartamentos = departamentoService.getDepartamentos();
 	}
-	
 
 	public UsuarioService getUsuarioService() {
 		return usuarioService;
@@ -221,16 +220,13 @@ public class EditarIncidenciaBean implements Serializable {
 	}
 
 	public void guardarVariable() {
-
 		if (idDepartamento != null) {
 			int idDepartament = Integer.parseInt(idDepartamento);
 			Departamento dep = departamentoService.getDepartamentoById(idDepartament).get(0);
 			incidencia.setDepartamento(dep);
 		}
-
 		Long co = comentarioService.getUltimoComentario() + 1;
 		Date date = new Date();
-
 		Usuario u = usuarioService.getUsuarioById(username).get(0);
 		Comentario c = new Comentario();
 		c.setFechaComentario(date);
@@ -238,26 +234,31 @@ public class EditarIncidenciaBean implements Serializable {
 		c.setIncidencia(incidencia);
 		c.setUsuario(u);
 		c.setIdcomentario(co);
-		String l = String.valueOf(estado);
+		String l;
+		if (estado != null) {
+			l = String.valueOf(estado);
+		} else {
+			Long l2 = incidencia.getEstadoincidencia().getIdEstado();
+			l = String.valueOf(l2);
+		}
 		Estadoincidencia es = estadoService.getEstado(l).get(0);
+		List<Comentario> list = incidencia.getComentarios();
+		list.add(c);
+		incidencia.setComentarios(list);
+		incidencia.setEstadoincidencia(es);
 		try {
-			System.out.println(incidencia.getDepartamento().getIdDepartamento());
 			comentarioService.newComentario(c);
-			List<Comentario> list=incidencia.getComentarios();
-    		list.add(c);
-    		incidencia.setComentarios(list);
-			incidencia.setEstadoincidencia(es);
 			incidenciaService.actualizarIncidencia(incidencia);
-
 			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro creado con éxito",
-					"Registro creado con éxito"));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro actualizado con éxito",
+					"Registro actualizado con éxito"));
 		} catch (RollbackException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			String mensaje = e.getCause().getCause().getMessage();
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, mensaje));
+
 		}
 		comentario="";
 	}

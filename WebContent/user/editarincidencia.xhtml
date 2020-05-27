@@ -10,7 +10,8 @@
 		href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 		crossorigin="anonymous" />
-	<link rel="stylesheet" type="text/css" href="../resources/estilos.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../resources/css/estilos.css" />
 	<f:metadata>
 		<f:viewParam name="idIncidencia"
 			value="#{editarIncidenciaBean.idIncidencia}" />
@@ -21,9 +22,9 @@
 </h:head>
 <h:body>
 	<f:ajax execute="@this" listener="#{editarIncidenciaBean.init()}"
-		render="@all" event="unload"/>
-	<a href="../user/home.xhtml">Inicio</a>
+		render="@all" event="unload" />
 	<div class="container">
+		<ui:include src="/WEB-INF/includes/menu.xhtml" />
 		<h:panelGroup id="panel">
 			<div class="row">
 				<h3>DATOS DE LA INCIDENCIA</h3>
